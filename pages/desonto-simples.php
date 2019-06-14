@@ -1,7 +1,5 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: 2015034822
- * Date: 13/06/2019
- * Time: 13:09
- */
+<?php require_once '../config.php'; ?>
+<?php include(HEADER_TEMPLATE); ?>
+
+
+<?php include(FOOTER_TEMPLATE); ?>

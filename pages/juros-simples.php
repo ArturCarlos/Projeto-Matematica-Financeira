@@ -1,23 +1,8 @@
-<?php
+<?php require_once '../config.php'; ?>
 
-function calculos()
-{
-    $a = $_POST['num1'];
-    $b = $_POST['num2'];
-    $op = $_POST['operacao'];
+<?php include(FUNCOES); ?>
+<?php include(HEADER_TEMPLATE); ?>
 
-    if (!empty($op)) {
-        if ($op == '+')
-            $c = $a + $b;
-        else if ($op == '-')
-            $c = $a - $b;
-        else if ($op == '*')
-            $c = $a * $b;
-        else
-            $c = $a / $b;
+        <!--Fomulario e retorna o calcula da funcao-->
 
-        echo "O resultado da opera&ccedil;&atilde;o &eacute;: $c";
-    }
-}
-
-?>
+<?php include(FOOTER_TEMPLATE); ?>
