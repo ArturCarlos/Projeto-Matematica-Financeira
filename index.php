@@ -17,7 +17,7 @@
         </div>
 
         <!--Pagina Juros Composto-->
-        <div class="col-xs-6 col-sm-3 col-md-2"><a href="pages/desconto-composto.php" class="btn btn-success">
+        <div class="col-xs-6 col-sm-3 col-md-2"><a href="pages/juros-composto.php" class="btn btn-success">
                 <div class="row">
                     <div class="col-xs-12 text-center"><i class="fa fa-calculator fa-5x"></i></div>
 
