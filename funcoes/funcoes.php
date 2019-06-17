@@ -65,27 +65,65 @@ function jurosSimples()
         $vf = null;
     }
 
-    $taxa = converteTaxa($taxa, $taxa_t);
+    /*Calcula Valor Futuro*/
+    if ($vp != null & $taxa != null & $tempo != null & $vf == null) {
 
-    $tempo = converteTempo($tempo, $tempo_t);
+        $taxa = converteTaxa($taxa, $taxa_t);
+        $tempo = converteTempo($tempo, $tempo_t);
 
-    echo "<h4>Valor Presente: " . $vp . "</h4> ";
-    echo "<h4>Taxa (" . $taxa_t . "): " . $taxa . "</h4> ";
-    echo "<h4>Tempo (" . $tempo_t . "): " . $tempo . "</h4> ";
+        echo "<h4>Valor Presente: " . $vp . "</h4> ";
+        echo "<h4>Taxa (" . $taxa_t . "): " . $taxa . "</h4> ";
+        echo "<h4>Tempo (" . $tempo_t . "): " . $tempo . "</h4> ";
+        echo "<h3>Valor Futuro: " . jurosSimplesM($vp, $taxa, $tempo) . "</h3> ";
 
 
-    echo "<h3>Valor Futuro: " . jurosSimplesM($vp, $taxa, $tempo) . "</h3> ";
+    } elseif ($vp == null & $taxa != null & $tempo != null & $vf != null) { /*Calcular valor do valor presente*/
+
+        jurosSmplesC($vf, $taxa, $tempo);
+
+    } elseif ($vp != null & $taxa == null & $tempo != null & $vf != null) { /*Calcular valor do valor da taxa*/
+
+        jurosSmplesI($vf, $vf, $tempo);
+
+    } elseif ($vp != null & $taxa != null & $tempo == null & $vf != null) { /*Calcular valor do tempo*/
+
+        jurosSmplesC($vp, $taxa, $vf);
+
+    }
 
 }
 
 function jurosSimplesM($c, $i, $t)
 {
-
     /*M = C.(1 + i.t)*/
 
     $m = ($c * (1 + ($i * $t)));
 
     return $m;
+
+}
+
+function jurosSmplesC($c, $i, $t)
+{
+    /*M = C.(1 + i.t)*/
+    echo "calculando valor presente";
+
+
+}
+
+function jurosSmplesI($c, $i, $t)
+{
+    /*M = C.(1 + i.t)*/
+    echo "calculando valor da taxa";
+
+
+}
+
+function jurosSmplesTT($c, $i, $t)
+{
+    /*M = C.(1 + i.t)*/
+    echo "calculando valor do tempo";
+
 }
 
 
@@ -114,22 +152,22 @@ function converteTempo($val, $per)
 
 function converteTaxa($val, $i)
 {
-   /* switch ($i) {
-        case 'dia':
-            $val = $val / 30;
-            break;
-        case 'mes':
-            break;
-        case 'ano':
-            $val = $val * 12;
-            break;
-        case 'sem':
-            $val = $val * 6;
-            break;
-        case 'tri':
-            $val = $val * 4;
-            break;
-    }*/
+    /* switch ($i) {
+         case 'dia':
+             $val = $val / 30;
+             break;
+         case 'mes':
+             break;
+         case 'ano':
+             $val = $val * 12;
+             break;
+         case 'sem':
+             $val = $val * 6;
+             break;
+         case 'tri':
+             $val = $val * 4;
+             break;
+     }*/
 
-    return ($val/100);
+    return ($val / 100);
 }
