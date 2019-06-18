@@ -1,8 +1,6 @@
 <?php require_once '../config.php'; ?>
 
-<?php include(FUNCOES);
-include "modal-jur-simples.php";
-?>
+<?php include(FUNCOES);?>
 <?php include(HEADER_TEMPLATE); ?>
 
     <!--Fomulario e retorna o calcula da funcao-->
@@ -20,16 +18,16 @@ include "modal-jur-simples.php";
                     </div>
                     <div class="row" style="margin-top: 20px;">
                         <div class="col-sm-12">
-                            <label for="taxa">Taxa:</label>
+                            <label for="taxa">Taxa % ao:</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-6"><input type="number" step="0.01" class="form-control" id="taxa"
                                                      name="taxa"/>
                         </div>
-                        <div class="col-sm-1"> % ao</div>
+                        <div class="col-sm-1"></div>
 
-                        <div class="col-sm-5">
+                        <div class="col-sm-6">
                             <select class="form-control" id="taxa-t" name="taxa-t">
                                 <option value="dia">Dia</option>
                                 <option value="mes">Mês</option>
