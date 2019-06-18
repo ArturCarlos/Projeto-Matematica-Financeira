@@ -98,7 +98,7 @@ function jurosSimples()
         echo "<h4>Valor Presente: " . $vp . "</h4> ";
         echo "<h4>Valor Futuro: " . $vf . "</h4> ";
 
-        echo "<h4>Taxa (" . $taxa . "): " . $taxa_t . "</h4> ";
+        echo "<h4>Taxa (" . $taxa_t . "): " . $taxa . "</h4> ";
         echo "<h3>Tempo: " . jurosSmplesTT($vp, $taxa, $vf) . "</h3> ";
 
     } else {
