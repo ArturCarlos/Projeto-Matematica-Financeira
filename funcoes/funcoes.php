@@ -65,10 +65,12 @@ function jurosSimples()
         $vf = null;
     }
 
+    $taxa = converteTaxa($taxa, $taxa_t);
+
     /*Calcula Valor Futuro*/
     if ($vp != null & $taxa != null & $tempo != null & $vf == null) {
 
-        $taxa = converteTaxa($taxa, $taxa_t);
+
         $tempo = converteTempo($tempo, $tempo_t);
 
         echo "<h4>Valor Presente: " . $vp . "</h4> ";
@@ -76,21 +78,31 @@ function jurosSimples()
         echo "<h4>Tempo (" . $tempo_t . "): " . $tempo . "</h4> ";
         echo "<h3>Valor Futuro: " . jurosSimplesM($vp, $taxa, $tempo) . "</h3> ";
 
-
     } elseif ($vp == null & $taxa != null & $tempo != null & $vf != null) { /*Calcular valor do valor presente*/
 
-        jurosSmplesC($vf, $taxa, $tempo);
+        echo "<h4>Valor Futuro: " . $vf . "</h4> ";
+        echo "<h4>Taxa (" . $taxa_t . "): " . $taxa . "</h4> ";
+        echo "<h4>Tempo (" . $tempo_t . "): " . $tempo . "</h4> ";
+        echo "<h3>Valor Presente: " . jurosSmplesC($vf, $taxa, $tempo) . "</h3> ";
+
 
     } elseif ($vp != null & $taxa == null & $tempo != null & $vf != null) { /*Calcular valor do valor da taxa*/
 
-        jurosSmplesI($vf, $vf, $tempo);
+        echo "<h4>Valor Futuro: " . $vf . "</h4> ";
+        echo "<h4>Valor Presente: " . $vp . "</h4> ";
+        echo "<h4>Tempo (" . $tempo_t . "): " . $tempo . "</h4> ";
+        echo "<h3>Taxa: " . jurosSmplesI($vp, $vf, $tempo) . "</h3> ";
+
 
     } elseif ($vp != null & $taxa != null & $tempo == null & $vf != null) { /*Calcular valor do tempo*/
 
-        jurosSmplesC($vp, $taxa, $vf);
+        echo "<h4>Valor Presente: " . $vp . "</h4> ";
+        echo "<h4>Valor Futuro: " . $vf . "</h4> ";
+
+        echo "<h4>Taxa (" . $taxa . "): " . $taxa_t . "</h4> ";
+        echo "<h3>Tempo: " . jurosSmplesTT($vp, $taxa, $vf) . "</h3> ";
 
     }
-
 }
 
 function jurosSimplesM($c, $i, $t)
@@ -103,27 +115,33 @@ function jurosSimplesM($c, $i, $t)
 
 }
 
-function jurosSmplesC($c, $i, $t)
+function jurosSmplesC($vf, $i, $t)
 {
-    /*M = C.(1 + i.t)*/
-    echo "calculando valor presente";
+    /*Valor Presente (ou Principal): P = F/(1 + i.n)*/
+    $vp = $vf / (1 + ($i * $t));
+    return $vp;
+
+    //echo "calculando valor presente";
 
 
 }
 
-function jurosSmplesI($c, $i, $t)
+function jurosSmplesI($vp, $vf, $t)
 {
-    /*M = C.(1 + i.t)*/
-    echo "calculando valor da taxa";
+    /*Taxa de Juros: i = (F - P)/(P.n)*/
+    $i = ($vf - $vp) / ($vp * $t);
 
+    //echo "calculando valor da taxa";
+    return $i;
 
 }
 
-function jurosSmplesTT($c, $i, $t)
+function jurosSmplesTT($vp, $taxa, $vf)
 {
-    /*M = C.(1 + i.t)*/
-    echo "calculando valor do tempo";
-
+    /*Número de Períodos: n = (F - P)/(P.i)*/
+    $t = ($vf - $vp) / ($vp * $taxa);
+    //echo "calculando valor do tempo";
+    return $t;
 }
 
 
