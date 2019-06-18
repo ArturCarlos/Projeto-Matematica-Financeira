@@ -65,10 +65,10 @@ function jurosSimples()
         $vf = null;
     }
 
-    $taxa = converteTaxaSimples($taxa, $taxa_t, $tempo_t);
-    $tempo = converteTempoSimples($tempo, $tempo_t, $taxa_t);
+    $taxa1 = converteTaxaSimples($taxa, $taxa_t, $tempo_t);
+    $tempo1 = converteTempoSimples($tempo, $tempo_t, $taxa_t);
 
-    echo "Taxa = ".$taxa . " Tempo = ";echo $tempo;
+    //echo "Taxa = ".$taxa . " Tempo = ";echo $tempo;
 
 
     /*Calcula Valor Futuro*/
@@ -78,14 +78,14 @@ function jurosSimples()
         echo "<h4>Valor Presente: " . $vp . "</h4> ";
         echo "<h4>Taxa (" . $taxa_t . "): " . $taxa . "</h4> ";
         echo "<h4>Tempo (" . $tempo_t . "): " . $tempo . "</h4> ";
-        echo "<h3>Valor Futuro: " . jurosSimplesM($vp, $taxa, $tempo) . "</h3> ";
+        echo "<h3>Valor Futuro: " . jurosSimplesM($vp, $taxa1, $tempo1) . "</h3> ";
 
     } elseif ($vp == null & $taxa != null & $tempo != null & $vf != null) { /*Calcular valor do valor presente*/
 
         echo "<h4>Valor Futuro: " . $vf . "</h4> ";
         echo "<h4>Taxa (" . $taxa_t . "): " . $taxa . "</h4> ";
         echo "<h4>Tempo (" . $tempo_t . "): " . $tempo . "</h4> ";
-        echo "<h3>Valor Presente: " . jurosSmplesC($vf, $taxa, $tempo) . "</h3> ";
+        echo "<h3>Valor Presente: " . jurosSmplesC($vf, $taxa1, $tempo1) . "</h3> ";
 
 
     } elseif ($vp != null & $taxa == null & $tempo != null & $vf != null) { /*Calcular valor do valor da taxa*/
@@ -93,7 +93,7 @@ function jurosSimples()
         echo "<h4>Valor Futuro: " . $vf . "</h4> ";
         echo "<h4>Valor Presente: " . $vp . "</h4> ";
         echo "<h4>Tempo (" . $tempo_t . "): " . $tempo . "</h4> ";
-        echo "<h3>Taxa: " . jurosSmplesI($vp, $vf, $tempo) . "</h3> ";
+        echo "<h3>Taxa(".$taxa_t."): " . jurosSmplesI($vp, $vf, $tempo1) . "</h3> ";
 
 
     } elseif ($vp != null & $taxa != null & $tempo == null & $vf != null) { /*Calcular valor do tempo*/
@@ -102,7 +102,7 @@ function jurosSimples()
         echo "<h4>Valor Futuro: " . $vf . "</h4> ";
 
         echo "<h4>Taxa (" . $taxa_t . "): " . $taxa . "</h4> ";
-        echo "<h3>Tempo: " . jurosSmplesTT($vp, $taxa, $vf) . "</h3> ";
+        echo "<h3>Tempo(".$tempo_t."): " . jurosSmplesTT($vp, $taxa1, $vf) . "</h3> ";
 
     } else {
         echo "<div class=\"alert alert-warning\">
