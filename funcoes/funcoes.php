@@ -70,7 +70,6 @@ function jurosSimples()
     /*Calcula Valor Futuro*/
     if ($vp != null & $taxa != null & $tempo != null & $vf == null) {
 
-
         $tempo = converteTempo($tempo, $tempo_t);
 
         echo "<h4>Valor Presente: " . $vp . "</h4> ";
@@ -102,7 +101,11 @@ function jurosSimples()
         echo "<h4>Taxa (" . $taxa . "): " . $taxa_t . "</h4> ";
         echo "<h3>Tempo: " . jurosSmplesTT($vp, $taxa, $vf) . "</h3> ";
 
+    } else {
+        echo "<div class=\"alert alert-warning\">
+            Deixe apenas um campo em branco.</div>";
     }
+
 }
 
 function jurosSimplesM($c, $i, $t)

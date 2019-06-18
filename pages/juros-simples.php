@@ -6,16 +6,16 @@ include "modal-jur-simples.php";
 <?php include(HEADER_TEMPLATE); ?>
 
     <!--Fomulario e retorna o calcula da funcao-->
-    <div class="container" style="margin-top: 20px;">
+    <div class="container">
         <h2>Juros Simples</h2>
         <form action="juros-simples.php">
             <div class="row">
-                <div class="col-sm-12">
+                <div class="col-sm-6">
 
                     <div class="row" style="margin-top: 20px;">
                         <div class="col-sm-12">
                             <label for="vp">Valor Presente:</label>
-                            <input type="number" class="form-control" id="vp" name="vp"/>
+                            <input type="number" step="0.01" class="form-control" id="vp" name="vp"/>
                         </div>
                     </div>
                     <div class="row" style="margin-top: 20px;">
@@ -24,7 +24,9 @@ include "modal-jur-simples.php";
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-6"><input type="number" class="form-control" id="taxa" name="taxa"/></div>
+                        <div class="col-sm-6"><input type="number" step="0.01" class="form-control" id="taxa"
+                                                     name="taxa"/>
+                        </div>
                         <div class="col-sm-1"> % ao</div>
 
                         <div class="col-sm-5">
@@ -43,7 +45,9 @@ include "modal-jur-simples.php";
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-6"><input type="number" class="form-control" id="tempo" name="tempo"/>
+                        <div class="col-sm-6">
+                            <input type="number" step="0.01" class="form-control" id="tempo"
+                                   name="tempo"/>
                         </div>
                         <div class="col-sm-6">
                             <select class="form-control" id="tempo-dia" name="tempo-t">
@@ -58,7 +62,7 @@ include "modal-jur-simples.php";
                     <div class="row" style="margin-top: 20px;">
                         <div class="col-sm-12">
                             <label for="vf">Valor Futuro:</label>
-                            <input type="number" class="form-control" name="vf" id="vf"/>
+                            <input type="number" step="0.01" class="form-control" name="vf" id="vf"/>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary btn-block" style="margin-top: 20px;">Calcular</button>
@@ -67,21 +71,20 @@ include "modal-jur-simples.php";
                 </div>
         </form>
 
+        <!--Resultados-->
+        <div class="col-sm-6">
+            <hr>
+            <div class="text-center">
+                <h3>Resultado</h3>
+            </div>
+            <hr>
 
-    </div>
-
-    <div class="box-header text-left">
-        <hr>
-        <h3>Resultado</h3>
-        <hr>
-
-
-        <div class="row" style="margin-top: 20px;">
-            <div class="col-sm-12">
-                <h4><?php jurosSimples();?></h4>
+            <div class="row">
+                <div class="col-sm-12">
+                    <h4><?php jurosSimples(); ?></h4>
+                </div>
             </div>
         </div>
 
     </div>
-
 <?php include(FOOTER_TEMPLATE); ?>
