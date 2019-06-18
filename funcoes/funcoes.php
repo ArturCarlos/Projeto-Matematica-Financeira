@@ -65,12 +65,15 @@ function jurosSimples()
         $vf = null;
     }
 
-    $taxa = converteTaxa($taxa, $taxa_t);
+    $taxa = converteTaxaSimples($taxa, $taxa_t, $tempo_t);
+    $tempo = converteTempoSimples($tempo, $tempo_t, $taxa_t);
+
+    echo "Taxa = ".$taxa . " Tempo = ";echo $tempo;
+
 
     /*Calcula Valor Futuro*/
     if ($vp != null & $taxa != null & $tempo != null & $vf == null) {
 
-        $tempo = converteTempo($tempo, $tempo_t);
 
         echo "<h4>Valor Presente: " . $vp . "</h4> ";
         echo "<h4>Taxa (" . $taxa_t . "): " . $taxa . "</h4> ";
@@ -148,47 +151,115 @@ function jurosSmplesTT($vp, $taxa, $vf)
 }
 
 
-function converteTempo($val, $per)
+function converteTempoSimples($val, $perT, $per)
 {
+    /*Converte todas os valores para mes*/
 
-    /*switch ($per) {
-        case 'dia':
-            $val = ($val / 30);
-            break;
-        case 'mes':
-            break;
-        case 'ano':
-            $val = $val * 12;
-            break;
-        case 'sem':
-            $val = $val * 6;
-            break;
-        case 'tri':
-            $val = $val * 4;
-            break;
-    }*/
-
-    return $val;
+    if ($per == $perT) {
+        return $val;
+    } else {
+        switch ($perT) {
+            case 'dia':
+                $val = ($val / 30);
+                break;
+            case 'mes':
+                break;
+            case 'ano':
+                $val = ($val * 12);
+                break;
+            case 'sem':
+                $val = ($val * 6);
+                break;
+            case 'tri':
+                $val = ($val * 4);
+                break;
+        }
+        return $val;
+    }
 }
 
-function converteTaxa($val, $i)
-{
-    /* switch ($i) {
-         case 'dia':
-             $val = $val / 30;
-             break;
-         case 'mes':
-             break;
-         case 'ano':
-             $val = $val * 12;
-             break;
-         case 'sem':
-             $val = $val * 6;
-             break;
-         case 'tri':
-             $val = $val * 4;
-             break;
-     }*/
 
-    return ($val / 100);
+function converteTaxaSimples($val, $perT, $per)
+{
+    /*Converte todas os valores para mes*/
+    if ($per == $perT) {
+        return $val/100;
+    } else {
+        switch ($perT) {
+            case 'dia':
+                $val = ($val / 30)/100;
+                break;
+            case 'mes':
+                $val = $val /100;
+                break;
+            case 'ano':
+                $val = ($val * 12)/100;
+                break;
+            case 'sem':
+                $val = ($val * 6)/100;
+                break;
+            case 'tri':
+                $val = ($val * 4)/100;
+                break;
+        }
+        return $val;
+    }
+}
+
+function converteTaxaComposto($val, $perT, $per)
+{
+    /*Converte todas os valores para mes*/
+
+    if ($per == $perT) {
+        return $val;
+    } else {
+        switch ($per) {
+            case 'dia':
+                $val = pow((1 + ($val / 100)), (30)) - 1;
+                break;
+            case 'mes':
+                $val = pow((1 + ($val / 100)), (1)) - 1;
+                break;
+            case 'ano':
+                $val = pow((1 + ($val / 100)), (1 / 12)) - 1;
+                break;
+            case 'sem':
+                $val = pow((1 + ($val / 100)), (1 / 6)) - 1;
+                break;
+            case 'tri':
+                $val = pow((1 + ($val / 100)), (1 / 3)) - 1;
+                break;
+        }
+        return $val;
+    }
+}
+
+
+
+
+function converteTempoComposto($val, $perT, $per)
+{
+    /*Converte todas os valores para mes*/
+    if ($per == $perT) {
+        return $val;
+    } else {
+        switch ($per) {
+            case 'dia':
+                $val = pow((1 + ($val / 100)), (30)) - 1;
+                break;
+            case 'mes':
+                $val = pow((1 + ($val / 100)), (1)) - 1;
+                break;
+            case 'ano':
+                $val = pow((1 + ($val / 100)), (1 / 12)) - 1;
+                break;
+            case 'sem':
+                $val = pow((1 + ($val / 100)), (1 / 6)) - 1;
+                break;
+            case 'tri':
+                $val = pow((1 + ($val / 100)), (1 / 3)) - 1;
+                break;
+        }
+        return $val;
+    }
 }
