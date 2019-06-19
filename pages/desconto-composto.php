@@ -1,11 +1,13 @@
 <?php require_once '../config.php'; ?>
+<?php require_once FUNCOES;
+?>
 <?php include(HEADER_TEMPLATE); ?>
 
 <div class="container" style="margin-top: 20px;">
     <h2>Desconto Composto</h2>
-    <form action="desconto-composto.php">
+    <form action="/desconto-composto.php">
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-6">
                 <div class="row" style="margin-top: 20px;">
                     <div class="col-sm-12"><label for="tipo-desconto">Tipo de desconto: </label></div>
                     <div class="col-sm-12">
@@ -67,6 +69,19 @@
                 <input class="btn btn-outline-primary btn-block" style="margin-top: 20px;" type="reset" value="Limpar">
             </div>
     </form>
+    <div class="col-sm-6">
+            <hr>
+            <div class="text-center">
+                <h3>Resultado</h3>
+            </div>
+            <hr>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <h4><?php descontoComposto(); ?></h4>
+                </div>
+            </div>
+    </div>
 </div>
 
 
