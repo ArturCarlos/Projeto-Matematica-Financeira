@@ -8,29 +8,6 @@
 */
 
 
-function decontoSimples()
-{
-
-    if (isset($_GET['tipo-desconto'])) {
-        echo $_GET['tipo-desconto'];
-    }
-    if (isset($_GET['nominal'])) {
-        echo $_GET['nominal'];
-    }
-    if (isset($_GET['taxa'])) {
-        echo $_GET['taxa'];
-    }
-    if (isset($_GET['tempo'])) {
-        echo $_GET['tempo'];
-    }
-    if (isset($_GET['tempo-dia'])) {
-        echo $_GET['tempo-dia'];
-    }
-    if (isset($_GET['valDesc'])) {
-        echo $_GET['valDesc'];
-    }
-}
-
 function jurosSimples()
 {
 
@@ -93,7 +70,7 @@ function jurosSimples()
         echo "<h4>Valor Futuro: " . $vf . "</h4> ";
         echo "<h4>Valor Presente: " . $vp . "</h4> ";
         echo "<h4>Tempo (" . $tempo_t . "): " . $tempo . "</h4> ";
-        echo "<h3>Taxa(".$taxa_t."): " . jurosSmplesI($vp, $vf, $tempo1) . "</h3> ";
+        echo "<h3>Taxa(" . $taxa_t . "): " . jurosSmplesI($vp, $vf, $tempo1) . "</h3> ";
 
 
     } elseif ($vp != null & $taxa != null & $tempo == null & $vf != null) { /*Calcular valor do tempo*/
@@ -102,7 +79,7 @@ function jurosSimples()
         echo "<h4>Valor Futuro: " . $vf . "</h4> ";
 
         echo "<h4>Taxa (" . $taxa_t . "): " . $taxa . "</h4> ";
-        echo "<h3>Tempo(".$tempo_t."): " . jurosSmplesTT($vp, $taxa1, $vf) . "</h3> ";
+        echo "<h3>Tempo(" . $tempo_t . "): " . jurosSmplesTT($vp, $taxa1, $vf) . "</h3> ";
 
     } else {
         echo "<div class=\"alert alert-warning\">
@@ -150,7 +127,6 @@ function jurosSmplesTT($vp, $taxa, $vf)
     return $t;
 }
 
-
 function converteTempoSimples($val, $perT, $per)
 {
     /*Converte todas os valores para mes*/
@@ -178,88 +154,144 @@ function converteTempoSimples($val, $perT, $per)
     }
 }
 
-
 function converteTaxaSimples($val, $perT, $per)
 {
     /*Converte todas os valores para mes*/
     if ($per == $perT) {
-        return $val/100;
+        return ($val / 100);
     } else {
         switch ($perT) {
             case 'dia':
-                $val = ($val / 30)/100;
+                $val = ($val / 30) / 100;
                 break;
             case 'mes':
-                $val = $val /100;
+                $val = $val / 100;
                 break;
             case 'ano':
-                $val = ($val * 12)/100;
+                $val = ($val * 12) / 100;
                 break;
             case 'sem':
-                $val = ($val * 6)/100;
+                $val = ($val * 6) / 100;
                 break;
             case 'tri':
-                $val = ($val * 4)/100;
+                $val = ($val * 4) / 100;
                 break;
         }
         return $val;
     }
 }
 
-function converteTaxaComposto($val, $perT, $per)
+function jurosComposto()
 {
-    /*Converte todas os valores para mes*/
 
-    if ($per == $perT) {
-        return $val;
+    if (isset($_GET['vp'])) {
+        $vp = $_GET['vp'];
     } else {
-        switch ($per) {
-            case 'dia':
-                $val = pow((1 + ($val / 100)), (30)) - 1;
-                break;
-            case 'mes':
-                $val = pow((1 + ($val / 100)), (1)) - 1;
-                break;
-            case 'ano':
-                $val = pow((1 + ($val / 100)), (1 / 12)) - 1;
-                break;
-            case 'sem':
-                $val = pow((1 + ($val / 100)), (1 / 6)) - 1;
-                break;
-            case 'tri':
-                $val = pow((1 + ($val / 100)), (1 / 3)) - 1;
-                break;
-        }
-        return $val;
+        $vp = null;
     }
+    if (isset($_GET['taxa'])) {
+        $taxa = $_GET['taxa'];
+    } else {
+        $taxa = null;
+    }
+    if (isset($_GET['taxa-t'])) {
+        $taxa_t = $_GET['taxa-t'];
+    } else {
+        $taxa_t = null;
+    }
+    if (isset($_GET['tempo'])) {
+        $tempo = $_GET['tempo'];
+    } else {
+        $tempo = null;
+    }
+    if (isset($_GET['tempo-t'])) {
+        $tempo_t = $_GET['tempo-t'];
+    } else {
+        $tempo_t = null;
+    }
+    if (isset($_GET['vf'])) {
+        $vf = $_GET['vf'];
+    } else {
+        $vf = null;
+    }
+
+    $taxa1 = converteTaxaSimples($taxa, $taxa_t, $tempo_t);
+    $tempo1 = converteTempoSimples($tempo, $tempo_t, $taxa_t);
+
+    //echo "Taxa = ".$taxa . " Tempo = ";echo $tempo;
+
+
+    /*Calcula Valor Futuro*/
+    if ($vp != null & $taxa != null & $tempo != null & $vf == null) {
+
+
+        echo "<h4>Valor Presente: " . $vp . "</h4> ";
+        echo "<h4>Taxa (" . $taxa_t . "): " . $taxa . "</h4> ";
+        echo "<h4>Tempo (" . $tempo_t . "): " . $tempo . "</h4> ";
+        echo "<h3>Valor Futuro: " . jurosCompostoM($vp, $taxa1, $tempo1) . "</h3> ";
+
+    } elseif ($vp == null & $taxa != null & $tempo != null & $vf != null) { /*Calcular valor do valor presente*/
+
+        echo "<h4>Valor Futuro: " . $vf . "</h4> ";
+        echo "<h4>Taxa (" . $taxa_t . "): " . $taxa . "</h4> ";
+        echo "<h4>Tempo (" . $tempo_t . "): " . $tempo . "</h4> ";
+        echo "<h3>Valor Presente: " . jurosSmplesC($vf, $taxa1, $tempo1) . "</h3> ";
+
+
+    } elseif ($vp != null & $taxa == null & $tempo != null & $vf != null) { /*Calcular valor do valor da taxa*/
+
+        echo "<h4>Valor Futuro: " . $vf . "</h4> ";
+        echo "<h4>Valor Presente: " . $vp . "</h4> ";
+        echo "<h4>Tempo (" . $tempo_t . "): " . $tempo . "</h4> ";
+        echo "<h3>Taxa(" . $taxa_t . "): " . jurosSmplesI($vp, $vf, $tempo1) . "</h3> ";
+
+
+    } elseif ($vp != null & $taxa != null & $tempo == null & $vf != null) { /*Calcular valor do tempo*/
+
+        echo "<h4>Valor Presente: " . $vp . "</h4> ";
+        echo "<h4>Valor Futuro: " . $vf . "</h4> ";
+
+        echo "<h4>Taxa (" . $taxa_t . "): " . $taxa . "</h4> ";
+        echo "<h3>Tempo(" . $tempo_t . "): " . jurosSmplesTT($vp, $taxa1, $vf) . "</h3> ";
+
+    } else {
+        echo "<div class=\"alert alert-warning\">
+            Deixe apenas um campo em branco.</div>";
+    }
+
 }
 
-
-
-
-function converteTempoComposto($val, $perT, $per)
+function jurosCompostoM($c, $i, $t)
 {
-    /*Converte todas os valores para mes*/
-    if ($per == $perT) {
-        return $val;
-    } else {
-        switch ($per) {
-            case 'dia':
-                $val = pow((1 + ($val / 100)), (30)) - 1;
-                break;
-            case 'mes':
-                $val = pow((1 + ($val / 100)), (1)) - 1;
-                break;
-            case 'ano':
-                $val = pow((1 + ($val / 100)), (1 / 12)) - 1;
-                break;
-            case 'sem':
-                $val = pow((1 + ($val / 100)), (1 / 6)) - 1;
-                break;
-            case 'tri':
-                $val = pow((1 + ($val / 100)), (1 / 3)) - 1;
-                break;
-        }
-        return $val;
+    /*F = P.(1 + i)n*/
+
+    $m = ($c * pow(1 + $i, $t));
+
+    return $m;
+
+}
+
+
+function decontoSimples()
+{
+
+    if (isset($_GET['tipo-desconto'])) {
+        echo $_GET['tipo-desconto'];
+    }
+    if (isset($_GET['nominal'])) {
+        echo $_GET['nominal'];
+    }
+    if (isset($_GET['taxa'])) {
+        echo $_GET['taxa'];
+    }
+    if (isset($_GET['tempo'])) {
+        echo $_GET['tempo'];
+    }
+    if (isset($_GET['tempo-dia'])) {
+        echo $_GET['tempo-dia'];
+    }
+    if (isset($_GET['valDesc'])) {
+        echo $_GET['valDesc'];
     }
 }
+
