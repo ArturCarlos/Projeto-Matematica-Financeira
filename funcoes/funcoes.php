@@ -242,7 +242,7 @@ function jurosComposto()
         echo "<h4>Valor Futuro: " . $vf . "</h4> ";
         echo "<h4>Valor Presente: " . $vp . "</h4> ";
         echo "<h4>Tempo (" . $tempo_t . "): " . $tempo . "</h4> ";
-        echo "<h3>Taxa(" . $taxa_t . "): " . jurosSmplesI($vp, $vf, $tempo1) . "</h3> ";
+        echo "<h3>Taxa(" . $taxa_t . "): " . jurosCompostoI($vp, $vf, $tempo1) . "</h3> ";
 
 
     } elseif ($vp != null & $taxa != null & $tempo == null & $vf != null) { /*Calcular valor do tempo*/
@@ -251,7 +251,7 @@ function jurosComposto()
         echo "<h4>Valor Futuro: " . $vf . "</h4> ";
 
         echo "<h4>Taxa (" . $taxa_t . "): " . $taxa . "</h4> ";
-        echo "<h3>Tempo(" . $tempo_t . "): " . jurosSmplesTT($vp, $taxa1, $vf) . "</h3> ";
+        echo "<h3>Tempo(" . $tempo_t . "): " . jurosCompoatoTT($vp, $taxa1, $vf) . "</h3> ";
 
     } else {
         echo "<div class=\"alert alert-warning\">
@@ -262,8 +262,6 @@ function jurosComposto()
 
 function jurosCompostoM($c, $i, $t)
 {
-    /*F = P.(1 + i)n*/
-
     $m = ($c * pow(1 + $i, $t));
 
     return $m;
@@ -272,13 +270,27 @@ function jurosCompostoM($c, $i, $t)
 
 function jurosCompostoC($vf, $i, $t)
 {
-    /*Valor Presente (ou Principal): P = F/(1 + i.n)*/
     $vp = $vf / pow((1 + $i), $t);
     return $vp;
 
-    //echo "calculando valor presente";
+}
+
+function jurosCompostoI($vp, $vf, $t)
+{
+    $i = pow(($vf / $vp), (1 / $t)) - 1;
+
+    return $i;
 
 }
+
+function jurosCompoatoTT($vp, $taxa, $vf)
+{
+    /*Número de Períodos: n = (F - P)/(P.i)*/
+    $t = ($vf - $vp) / ($vp * $taxa);
+    //echo "calculando valor do tempo";
+    return $t;
+}
+
 
 function decontoSimples()
 {
