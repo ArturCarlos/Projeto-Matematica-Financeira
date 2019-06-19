@@ -242,7 +242,8 @@ function jurosComposto()
         echo "<h4>Valor Futuro: " . $vf . "</h4> ";
         echo "<h4>Valor Presente: " . $vp . "</h4> ";
         echo "<h4>Tempo (" . $tempo_t . "): " . $tempo . "</h4> ";
-        echo "<h3>Taxa(" . $taxa_t . "): " . jurosCompostoI($vp, $vf, $tempo1) . "</h3> ";
+
+        echo "<h3>Taxa(" . $taxa_t . "): " . jurosCompostoI($vp, $vf, $tempo1) . " %</h3> ";
 
 
     } elseif ($vp != null & $taxa != null & $tempo == null & $vf != null) { /*Calcular valor do tempo*/
@@ -251,8 +252,8 @@ function jurosComposto()
         echo "<h4>Valor Futuro: " . $vf . "</h4> ";
 
         echo "<h4>Taxa (" . $taxa_t . "): " . $taxa . "</h4> ";
-        echo "<h3>Tempo(" . $tempo_t . "): " . jurosCompoatoTT($vp, $taxa1, $vf) . "</h3> ";
 
+        echo "<h3>Tempo(" . $tempo_t . "): " . converteTempoComposto(jurosCompoatoTT($vp, $taxa1, $vf), $tempo_t, $taxa_t) . "</h3> ";
     } else {
         echo "<div class=\"alert alert-warning\">
             Deixe apenas um campo em branco.</div>";
@@ -286,11 +287,37 @@ function jurosCompostoI($vp, $vf, $t)
 function jurosCompoatoTT($vp, $taxa, $vf)
 {
     /*Número de Períodos: n = (F - P)/(P.i)*/
-    $t = ($vf - $vp) / ($vp * $taxa);
+    $t = log($vf / $vp) / log(1 + $taxa);
     //echo "calculando valor do tempo";
     return $t;
 }
 
+function converteTempoComposto($val, $perT, $per)
+{
+    /*Converte todas os valores para mes*/
+
+    if ($per == $perT) {
+        return $val;
+    } else {
+        switch ($perT) {
+            case 'dia':
+                $val = ($val * 30);
+                break;
+            case 'mes':
+                break;
+            case 'ano':
+                $val = ($val / 12);
+                break;
+            case 'sem':
+                $val = ($val / 6);
+                break;
+            case 'tri':
+                $val = ($val / 4);
+                break;
+        }
+        return $val;
+    }
+}
 
 function decontoSimples()
 {

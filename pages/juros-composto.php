@@ -54,7 +54,7 @@
                     <div class="row" style="margin-top: 20px;">
                         <div class="col-sm-12">
                             <label for="vf">Valor Futuro:</label>
-                            <input type="number" class="form-control" name="vf" id="vf"/>
+                            <input type="number" step="0.01" class="form-control" name="vf" id="vf"/>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary btn-block" style="margin-top: 20px;">Calcular</button>
