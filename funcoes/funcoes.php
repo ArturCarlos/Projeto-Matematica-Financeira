@@ -1,13 +1,5 @@
 <?php
 
-/*
- *
- *
- *
- * Codigos das funcoes
-*/
-
-
 function jurosSimples()
 {
 
@@ -323,22 +315,101 @@ function decontoSimples()
 {
 
     if (isset($_GET['tipo-desconto'])) {
-        echo $_GET['tipo-desconto'];
+        $tipoDesc = $_GET['tipo-desconto'];
+    } else {
+        $tipoDesc = null;
     }
     if (isset($_GET['nominal'])) {
-        echo $_GET['nominal'];
+        $nominal = $_GET['nominal'];
+    } else {
+        $nominal = null;
     }
     if (isset($_GET['taxa'])) {
-        echo $_GET['taxa'];
+        $taxa = $_GET['taxa'];
+    } else {
+        $taxa = null;
+    }
+    if (isset($_GET['taxa-t'])) {
+        $taxa_t = $_GET['taxa-t'];
+    } else {
+        $taxa_t = null;
     }
     if (isset($_GET['tempo'])) {
-        echo $_GET['tempo'];
+        $tempo = $_GET['tempo'];
+    } else {
+        $tempo = null;
     }
-    if (isset($_GET['tempo-dia'])) {
-        echo $_GET['tempo-dia'];
+    if (isset($_GET['tempo-t'])) {
+        $tempo_t = $_GET['tempo-t'];
+    } else {
+        $tempo_t = null;
     }
     if (isset($_GET['valDesc'])) {
-        echo $_GET['valDesc'];
+        $valDesc = $_GET['valDesc'];
+    } else {
+        $valDesc = null;
     }
+
+    /*Calcula desconto simples comercial*/
+
+    if ($nominal == null & $taxa != null & $tempo != null & $valDesc != null) {
+
+        echo "<h4>Desconto (" . $tipoDesc . ")</h4> ";
+        echo "<h4>Taxa (" . $taxa_t . "): " . $taxa . "</h4> ";
+        echo "<h4>Tempo (" . $tempo_t . "): " . $tempo . "</h4> ";
+        echo "<h4>Valor Desconto: " . $valDesc . "</h4> ";
+
+        if ($tipoDesc == 'com') {
+            echo "<h3>Valor Nominal: " . $nominal . "</h3> ";
+        } else {
+            echo "<h3>Valor Nominal: " . $nominal . "</h3> ";
+        }
+
+    } elseif ($nominal != null & $taxa == null & $tempo != null & $valDesc != null) {
+
+        echo "<h4>Desconto (" . $tipoDesc . ")</h4> ";
+        echo "<h4>Valor Nominal: " . $nominal . "</h4> ";
+        echo "<h4>Tempo (" . $tempo_t . "): " . $tempo . "</h4> ";
+        echo "<h4>Valor Desconto: " . $valDesc . "</h4> ";
+
+        if ($tipoDesc == 'com') {
+            echo "<h3>Taxa (" . $taxa_t . "): " . $taxa . "</h3> ";
+        } else {
+            echo "<h3>Taxa (" . $taxa_t . "): " . $taxa . "</h3> ";
+        }
+
+    } elseif ($nominal != null & $taxa != null & $tempo == null & $valDesc != null) {
+
+        echo "<h4>Desconto (" . $tipoDesc . ")</h4> ";
+        echo "<h4>Valor Nominal: " . $nominal . "</h4> ";
+        echo "<h4>Taxa (" . $taxa_t . "): " . $taxa . "</h4> ";
+        echo "<h4>Valor Desconto: " . $valDesc . "</h4> ";
+
+        if ($tipoDesc == 'com') {
+
+            echo "<h3>Tempo (" . $tempo_t . "): " . $tempo . "</h3> ";
+        } else {
+            echo "<h3>Tempo (" . $tempo_t . "): " . $tempo . "</h3> ";
+        }
+
+
+    } elseif ($nominal != null & $taxa != null & $tempo != null & $valDesc == null) {
+
+        echo "<h4>Desconto (" . $tipoDesc . ")</h4> ";
+        echo "<h4>Valor Nominal: " . $nominal . "</h4> ";
+        echo "<h4>Taxa (" . $taxa_t . "): " . $taxa . "</h4> ";
+        echo "<h4>Tempo (" . $tempo_t . "): " . $tempo . "</h4> ";
+
+        if ($tipoDesc == 'com') {
+            echo "<h4>Valor Desconto: " . $valDesc . "</h4> ";
+        } else {
+            echo "<h4>Valor Desconto: " . $valDesc . "</h4> ";
+        }
+    } else {
+        echo "<div class=\"alert alert-warning\">
+            Deixe apenas um campo em branco.</div>";
+    }
+
+
 }
 

@@ -1,6 +1,5 @@
 <?php require_once '../config.php'; ?>
 <?php require_once FUNCOES;
-decontoSimples();
 ?>
 <?php include(HEADER_TEMPLATE); ?>
 
@@ -55,7 +54,7 @@ decontoSimples();
                         <div class="col-sm-6">
                             <input type="number" step="0.01" class="form-control" name="tempo" id="tempo"/></div>
                         <div class="col-sm-6">
-                            <select class="form-control" id="tempo-dia" name="tempo-dia">
+                            <select class="form-control" id="tempo-t" name="tempo-t">
                                 <option value="dia">Dia</option>
                                 <option value="mes">Mês</option>
                                 <option value="ano">Ano</option>
@@ -90,7 +89,7 @@ decontoSimples();
 
             <div class="row">
                 <div class="col-sm-12">
-                    <h4><?php jurosSimples(); ?></h4>
+                    <h4><?php decontoSimples(); ?></h4>
                 </div>
             </div>
         </div>
