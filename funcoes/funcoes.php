@@ -235,8 +235,7 @@ function jurosComposto()
         echo "<h4>Valor Futuro: " . $vf . "</h4> ";
         echo "<h4>Taxa (" . $taxa_t . "): " . $taxa . "</h4> ";
         echo "<h4>Tempo (" . $tempo_t . "): " . $tempo . "</h4> ";
-        echo "<h3>Valor Presente: " . jurosSmplesC($vf, $taxa1, $tempo1) . "</h3> ";
-
+        echo "<h3>Valor Presente: " . jurosCompostoC($vf, $taxa1, $tempo1) . "</h3> ";
 
     } elseif ($vp != null & $taxa == null & $tempo != null & $vf != null) { /*Calcular valor do valor da taxa*/
 
@@ -271,6 +270,15 @@ function jurosCompostoM($c, $i, $t)
 
 }
 
+function jurosCompostoC($vf, $i, $t)
+{
+    /*Valor Presente (ou Principal): P = F/(1 + i.n)*/
+    $vp = $vf / pow((1 + $i), $t);
+    return $vp;
+
+    //echo "calculando valor presente";
+
+}
 
 function decontoSimples()
 {
