@@ -296,6 +296,10 @@ function decontoSimples()
     } else {
         $valDesc = null;
     }
+
+    $taxa1 = converteTaxaSimples($taxa, $taxa_t, $tempo_t);
+    $tempo1 = converteTempoSimples($tempo, $tempo_t, $taxa_t);
+
     /*Calcula desconto simples comercial*/
     if ($nominal == null & $taxa != null & $tempo != null & $valDesc != null) {
         echo "<h4>Desconto (" . $tipoDesc . ")</h4> ";
@@ -303,9 +307,9 @@ function decontoSimples()
         echo "<h4>Tempo (" . $tempo_t . "): " . $tempo . "</h4> ";
         echo "<h4>Valor Desconto: " . $valDesc . "</h4> ";
         if ($tipoDesc == 'com') {
-            echo "<h3>Valor Nominal: " . descontoSimplesCn($valDesc, $taxa, $tempo) . "</h3> ";
+            echo "<h3>Valor Nominal: " . descontoSimplesCn($valDesc, $taxa1, $tempo1) . "</h3> ";
         } else {
-            echo "<h3>Valor Nominal: " . descontoSimplesRn($valDesc, $taxa, $tempo) . "</h3> ";
+            echo "<h3>Valor Nominal: " . descontoSimplesRn($valDesc, $taxa1, $tempo1) . "</h3> ";
         }
     } elseif ($nominal != null & $taxa == null & $tempo != null & $valDesc != null) {
         echo "<h4>Desconto (" . $tipoDesc . ")</h4> ";
@@ -313,9 +317,9 @@ function decontoSimples()
         echo "<h4>Tempo (" . $tempo_t . "): " . $tempo . "</h4> ";
         echo "<h4>Valor Desconto: " . $valDesc . "</h4> ";
         if ($tipoDesc == 'com') {
-            echo "<h3>Taxa (" . $taxa_t . "): " . descontoSimplesCtx($nominal, $valDesc, $tempo) . "% </h3> ";
+            echo "<h3>Taxa (" . $taxa_t . "): " . descontoSimplesCtx($nominal, $valDesc, $tempo1) . "% </h3> ";
         } else {
-            echo "<h3>Taxa (" . $taxa_t . "): " . descontoSimplesRtx($nominal, $valDesc, $tempo) . "% </h3> ";
+            echo "<h3>Taxa (" . $taxa_t . "): " . descontoSimplesRtx($nominal, $valDesc, $tempo1) . "% </h3> ";
         }
     } elseif ($nominal != null & $taxa != null & $tempo == null & $valDesc != null) {
         echo "<h4>Desconto (" . $tipoDesc . ")</h4> ";
@@ -323,9 +327,9 @@ function decontoSimples()
         echo "<h4>Taxa (" . $taxa_t . "): " . $taxa . " % </h4> ";
         echo "<h4>Valor Desconto: " . $valDesc . "</h4> ";
         if ($tipoDesc == 'com') {
-            echo "<h3>Tempo (" . $tempo_t . "): " . descontoSimplesCtempo($nominal, $valDesc, $taxa) . "</h3> ";
+            echo "<h3>Tempo (" . $tempo_t . "): " . descontoSimplesCtempo($nominal, $valDesc, $taxa1) . "</h3> ";
         } else {
-            echo "<h3>Tempo (" . $tempo_t . "): " . descontoSimplesRtempo($nominal, $valDesc, $taxa) . "</h3> ";
+            echo "<h3>Tempo (" . $tempo_t . "): " . descontoSimplesRtempo($nominal, $valDesc, $taxa1) . "</h3> ";
         }
     } elseif ($nominal != null & $taxa != null & $tempo != null & $valDesc == null) {
         echo "<h4>Desconto (" . $tipoDesc . ")</h4> ";
@@ -333,9 +337,9 @@ function decontoSimples()
         echo "<h4>Taxa (" . $taxa_t . "): " . $taxa . "% </h4> ";
         echo "<h4>Tempo (" . $tempo_t . "): " . $tempo . "</h4> ";
         if ($tipoDesc == 'com') {
-            echo "<h4>Valor Desconto: " . descontoSimplesC($nominal, $taxa, $tempo) . "</h4> ";
+            echo "<h4>Valor Desconto: " . descontoSimplesC($nominal, $taxa, $tempo1) . "</h4> ";
         } else {
-            echo "<h4>Valor Desconto: " . descontoSimplesR($nominal, $taxa, $tempo) . "</h4> ";
+            echo "<h4>Valor Desconto: " . descontoSimplesR($nominal, $taxa, $tempo1) . "</h4> ";
         }
     } else {
         echo "<div class=\"alert alert-warning\">
