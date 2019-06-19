@@ -1,5 +1,7 @@
 <?php require_once '../config.php'; ?>
-<?php include(HEADER_TEMPLATE); ?>
+<?php include(HEADER_TEMPLATE);
+include FUNCOES;
+?>
 
     <div class="container" style="margin-top: 20px;">
         <h2>Montante</h2>

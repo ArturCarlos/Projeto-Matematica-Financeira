@@ -5,7 +5,7 @@
 
 <div class="container" style="margin-top: 20px;">
     <h2>Desconto Composto</h2>
-    <form action="/desconto-composto.php">
+    <form action="desconto-composto.php">
         <div class="row">
             <div class="col-sm-6">
                 <div class="row" style="margin-top: 20px;">
