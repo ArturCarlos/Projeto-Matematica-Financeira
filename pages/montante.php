@@ -59,6 +59,20 @@
                            value="Limpar">
                 </div>
         </form>
+        <!--Resultados-->
+        <div class="col-sm-6">
+            <hr>
+            <div class="text-center">
+                <h3>Resultado</h3>
+            </div>
+            <hr>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <h4><?php montante(); ?></h4>
+                </div>
+            </div>
+        </div>
     </div>
 
 
