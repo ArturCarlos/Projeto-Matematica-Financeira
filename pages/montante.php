@@ -11,7 +11,7 @@ include FUNCOES;
                     <div class="row" style="margin-top: 20px;">
                         <div class="col-sm-12">
                             <label for="r">Valor da Parcela:</label>
-                            <input type="number" step="0.01" class="form-control" min="0" pattern="^\d*(\.\d{0,2})?$"
+                            <input type="number" step="0.01" class="form-control" min="0" name="vp" pattern="^\d*(\.\d{0,2})?$"
                                    id="r"/>
                         </div>
                     </div>
@@ -21,10 +21,10 @@ include FUNCOES;
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-6"><input type="number" step="0.01" class="form-control" id="taxa" min="0"
+                        <div class="col-sm-6"><input type="number" step="0.01" class="form-control" id="taxa" name="taxa" min="0"
                                                      pattern="^\d*(\.\d{0,2})?$"/></div>
                         <div class="col-sm-6">
-                            <select class="form-control" id="taxa-t">
+                            <select class="form-control" name="taxa-t" id="taxa-t">
                                 <option value="dia">Dia</option>
                                 <option value="mes">Mês</option>
                                 <option value="ano">Ano</option>
@@ -39,9 +39,9 @@ include FUNCOES;
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-6"><input type="number" step="0.01" class="form-control" id="tempo"/></div>
+                        <div class="col-sm-6"><input type="number" step="0.01" class="form-control" name="tempo" id="tempo"/></div>
                         <div class="col-sm-6">
-                            <select class="form-control" id="tempo-dia">
+                            <select class="form-control" name="tempo-t" id="tempo-t">
                                 <option value="dia">Dia</option>
                                 <option value="mes">Mês</option>
                                 <option value="ano">Ano</option>
@@ -53,7 +53,7 @@ include FUNCOES;
                     <div class="row" style="margin-top: 20px;">
                         <div class="col-sm-12">
                             <label for="m">Montante:</label>
-                            <input type="number" step="0.01" class="form-control" id="m"/>
+                            <input type="number" step="0.01" class="form-control" name="vf" id="m"/>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary btn-block" style="margin-top: 20px;">Calcular</button>

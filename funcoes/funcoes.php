@@ -60,12 +60,14 @@ function jurosSimples()
             Deixe apenas um campo em branco.</div>";
     }
 }
+
 function jurosSimplesM($c, $i, $t)
 {
     /*M = C.(1 + i.t)*/
     $m = ($c * (1 + ($i * $t)));
     return $m;
 }
+
 function jurosSmplesC($vf, $i, $t)
 {
     /*Valor Presente (ou Principal): P = F/(1 + i.n)*/
@@ -73,6 +75,7 @@ function jurosSmplesC($vf, $i, $t)
     return $vp;
     //echo "calculando valor presente";
 }
+
 function jurosSmplesI($vp, $vf, $t)
 {
     /*Taxa de Juros: i = (F - P)/(P.n)*/
@@ -80,6 +83,7 @@ function jurosSmplesI($vp, $vf, $t)
     //echo "calculando valor da taxa";
     return $i;
 }
+
 function jurosSmplesTT($vp, $taxa, $vf)
 {
     /*Número de Períodos: n = (F - P)/(P.i)*/
@@ -87,6 +91,7 @@ function jurosSmplesTT($vp, $taxa, $vf)
     //echo "calculando valor do tempo";
     return $t;
 }
+
 function converteTempoSimples($val, $perT, $per)
 {
     /*Converte todas os valores para mes*/
@@ -112,6 +117,7 @@ function converteTempoSimples($val, $perT, $per)
         return $val;
     }
 }
+
 function converteTaxaSimples($val, $perT, $per)
 {
     /*Converte todas os valores para mes*/
@@ -138,6 +144,7 @@ function converteTaxaSimples($val, $perT, $per)
         return $val;
     }
 }
+
 function jurosComposto()
 {
     if (isset($_GET['vp'])) {
@@ -199,21 +206,25 @@ function jurosComposto()
             Deixe apenas um campo em branco.</div>";
     }
 }
+
 function jurosCompostoM($c, $i, $t)
 {
     $m = ($c * pow(1 + $i, $t));
     return $m;
 }
+
 function jurosCompostoC($vf, $i, $t)
 {
     $vp = $vf / pow((1 + $i), $t);
     return $vp;
 }
+
 function jurosCompostoI($vp, $vf, $t)
 {
     $i = pow(($vf / $vp), (1 / $t)) - 1;
     return $i;
 }
+
 function jurosCompoatoTT($vp, $taxa, $vf)
 {
     /*Número de Períodos: n = (F - P)/(P.i)*/
@@ -221,6 +232,7 @@ function jurosCompoatoTT($vp, $taxa, $vf)
     //echo "calculando valor do tempo";
     return $t;
 }
+
 function converteTempoComposto($val, $perT, $per)
 {
     /*Converte todas os valores para mes*/
@@ -246,6 +258,7 @@ function converteTempoComposto($val, $perT, $per)
         return $val;
     }
 }
+
 function decontoSimples()
 {
     if (isset($_GET['tipo-desconto'])) {
@@ -331,43 +344,58 @@ function decontoSimples()
 }
 
 // Desconto Racional Simples
-function descontoSimplesRtx($nominal, $valDesc, $tempo) {
+function descontoSimplesRtx($nominal, $valDesc, $tempo)
+{
     /* Valor da taxa: tx = ((VF/N) - 1 ) / n */
     $tx = (($valDesc / $nominal) - 1) / $tempo;
     return $tx;
 }
-function descontoSimplesRtempo($nominal, $valDesc, $taxa) {
+
+function descontoSimplesRtempo($nominal, $valDesc, $taxa)
+{
     /* Valor da tempo: n = ((VF/N) - 1 ) / i */
     $n = (($valDesc / $nominal) - 1) / $taxa;
     return $n;
 }
-function descontoSimplesRn($valDesc, $taxa, $tempo) { // valor presente
+
+function descontoSimplesRn($valDesc, $taxa, $tempo)
+{ // valor presente
     /*Valor nominal: N = VF / (1 + i.n) */
     $nominal = $valDesc / (1 + $taxa * $tempo);
     return $nominal;
 }
-function descontoSimplesR($nominal, $taxa, $tempo) {  //valor futuro
+
+function descontoSimplesR($nominal, $taxa, $tempo)
+{  //valor futuro
     /* Valor futuro: VF = N.(1 + i.n) */
     $valDesc = $nominal / (1 + $taxa * $tempo);
     return $valDesc;
 }
+
 // Desconto Comercial Simples
-function descontoSimplesCtx($nominal, $valDesc, $tempo) {
+function descontoSimplesCtx($nominal, $valDesc, $tempo)
+{
     /* Valor da taxa: d = D / N.n */
     $i = $valDesc / ($nominal * $tempo);
     return $i;
 }
-function descontoSimplesCtempo($nominal, $valDesc, $taxa) {
+
+function descontoSimplesCtempo($nominal, $valDesc, $taxa)
+{
     /* Valor da tempo: n = D / N.d */
     $n = $valDesc / ($nominal * $taxa);
     return $n;
 }
-function descontoSimplesCn($valDesc, $taxa, $tempo) {
+
+function descontoSimplesCn($valDesc, $taxa, $tempo)
+{
     /*Valor nominal: N = D / d.n */
     $nominal = $valDesc / ($taxa * $tempo);
     return $nominal;
 }
-function descontoSimplesC($nominal, $taxa, $tempo) {
+
+function descontoSimplesC($nominal, $taxa, $tempo)
+{
     /* Valor de desconto: D = N.d.n */
     $valDesc = $nominal * $taxa * $tempo;
     return $valDesc;
@@ -417,38 +445,38 @@ function descontoComposto()
     } else {
         $valDesc = null;
     }
-    
+
     $taxa1 = converteTaxaSimples($taxa, $taxa_t, $tempo_t);
     $tempo1 = converteTempoSimples($tempo, $tempo_t, $taxa_t);
 
     //echo "Taxa = ".$taxa . " Tempo = ";echo $tempo;
 
-    if($tipoDesconto == 'com') {
+    if ($tipoDesconto == 'com') {
         if ($nominal != null & $taxa != null & $tempo != null & $valDesc == null) { //valor descontado
             $valDesc = descontoCompostoC($nominal, $taxa1, $tempo1);
             echo "<h4>Valor Presente: " . $nominal . "</h4> ";
             echo "<h4>Taxa (" . $taxa_t . "): " . $taxa . "% </h4> ";
             echo "<h4>Tempo (" . $tempo_t . "): " . $tempo . "</h4> ";
-            echo "<h4>Desconto: ". valDesconto($valDesc, $nominal) ."</h4> ";
+            echo "<h4>Desconto: " . valDesconto($valDesc, $nominal) . "</h4> ";
             echo "<h3>Valor Futuro: " . $valDesc . "</h3> ";
         } elseif ($nominal == null & $taxa != null & $tempo != null & $valDesc != null) { //valor nominal
             $nominal = descontoCompostoCn($valDesc, $taxa1, $tempo1);
             echo "<h4>Valor Presente: " . $valDesc . "</h4> ";
             echo "<h4>Taxa (" . $taxa_t . "): " . $taxa . "% </h4> ";
             echo "<h4>Tempo (" . $tempo_t . "): " . $tempo . "</h4> ";
-            echo "<h4>Desconto: ". valDesconto($valDesc, $nominal) ."</h4> ";
+            echo "<h4>Desconto: " . valDesconto($valDesc, $nominal) . "</h4> ";
             echo "<h3>Valor Futuro: " . $valDesc . "</h3> ";
         } elseif ($nominal != null & $taxa == null & $tempo != null & $valDesc != null) { //valor da taxa
             echo "<h4>Valor Presente: " . $nominal . "</h4> ";
             echo "<h4>Taxa (" . $taxa_t . "): " . descontoCompostoCtx($nominal, $valDesc, $tempo1) . "% </h4> ";
             echo "<h4>Tempo (" . $tempo_t . "): " . $tempo . "</h4> ";
-            echo "<h4>Desconto: ". valDesconto($valDesc, $nominal) ."</h4> ";
+            echo "<h4>Desconto: " . valDesconto($valDesc, $nominal) . "</h4> ";
             echo "<h3>Valor Futuro: " . $valDesc . "</h3> ";
         } elseif ($nominal != null & $taxa != null & $tempo == null & $valDesc != null) { //valor período
             echo "<h4>Valor Presente: " . $nominal . "</h4> ";
             echo "<h4>Taxa (" . $taxa_t . "): " . $taxa . "% </h4> ";
             echo "<h4>Tempo (" . $tempo_t . "): " . descontoCompostoCtempo($nominal, $valDesc, $taxa1) . "</h4> ";
-            echo "<h4>Desconto: ". valDesconto($valDesc, $nominal) ."</h4> ";
+            echo "<h4>Desconto: " . valDesconto($valDesc, $nominal) . "</h4> ";
             echo "<h3>Valor Futuro: " . $valDesc . "</h3> ";
         }
     } elseif ($tipoDesconto == 'rac') {
@@ -457,26 +485,26 @@ function descontoComposto()
             echo "<h4>Valor Presente: " . $nominal . "</h4> ";
             echo "<h4>Taxa (" . $taxa_t . "): " . $taxa . "% </h4> ";
             echo "<h4>Tempo (" . $tempo_t . "): " . $tempo . "</h4> ";
-            echo "<h4>Desconto: ". descontoCompostoR($nominal, $taxa1, $tempo1) ."</h4> ";
+            echo "<h4>Desconto: " . descontoCompostoR($nominal, $taxa1, $tempo1) . "</h4> ";
             echo "<h3>Valor Futuro: " . valorFinalDCr($nominal, $taxa1, $tempo1) . "</h3> ";
         } elseif ($nominal == null & $taxa != null & $tempo != null & $valDesc != null) { //valor nominal
             $nominal = descontoCompostoRn($valDesc, $taxa1, $tempo1);
             echo "<h4>Valor Presente: " . $nominal . "</h4> ";
             echo "<h4>Taxa (" . $taxa_t . "): " . $taxa . "% </h4> ";
             echo "<h4>Tempo (" . $tempo_t . "): " . $tempo . "</h4> ";
-            echo "<h4>Desconto: ". descontoCompostoR($nominal, $taxa1, $tempo1) ."</h4> ";
+            echo "<h4>Desconto: " . descontoCompostoR($nominal, $taxa1, $tempo1) . "</h4> ";
             echo "<h3>Valor Futuro: " . $valDesc . "</h3> ";
         } elseif ($nominal != null & $taxa == null & $tempo != null & $valDesc != null) { //valor da taxa
             echo "<h4>Valor Presente: " . $nominal . "</h4> ";
             echo "<h4>Taxa (" . $taxa_t . "): " . descontoCompostoRtx($nominal, $valDesc, $tempo1) . "% </h4> ";
             echo "<h4>Tempo (" . $tempo_t . "): " . $tempo . "</h4> ";
-            echo "<h4>Desconto: ". descontoCompostoR($nominal, $taxa1, $tempo1) ."</h4> ";
+            echo "<h4>Desconto: " . descontoCompostoR($nominal, $taxa1, $tempo1) . "</h4> ";
             echo "<h3>Valor Futuro: " . $valDesc . "</h3> ";
         } elseif ($nominal != null & $taxa != null & $tempo == null & $valDesc != null) { // valor do período
             echo "<h4>Valor Presente: " . $nominal . "</h4> ";
             echo "<h4>Taxa (" . $taxa_t . "): " . $taxa . "% </h4> ";
             echo "<h4>Tempo (" . $tempo_t . "): " . descontoCompostoRtempo($nominal, $valDesc, $taxa1) . "</h4> ";
-            echo "<h4>Desconto: ". descontoCompostoR($nominal, $taxa1, $tempo1) ."</h4> ";
+            echo "<h4>Desconto: " . descontoCompostoR($nominal, $taxa1, $tempo1) . "</h4> ";
             echo "<h3>Valor Futuro: " . $valDesc . "</h3> ";
         }
     } else {
@@ -486,68 +514,81 @@ function descontoComposto()
 }
 
 // Desconto Composto Comercial
-function descontoCompostoCtx($nominal, $valDesc, $tempo) {
+function descontoCompostoCtx($nominal, $valDesc, $tempo)
+{
     /* Valor da taxa: d = D / N.n */
     $i = $valDesc / ($nominal * $tempo);
     return $i;
 }
 
-function descontoCompostoCtempo($nominal, $valDesc, $taxa) {
+function descontoCompostoCtempo($nominal, $valDesc, $taxa)
+{
     /* Valor da tempo: n = D / N.d */
     $n = $valDesc / ($nominal * $taxa);
     return $n;
 }
 
-function descontoCompostoCn($valDesc, $taxa, $tempo) {
+function descontoCompostoCn($valDesc, $taxa, $tempo)
+{
     /*Valor nominal: N = vf * (1 + i) ^ n*/
     $nominal = $valDesc * pow((1 + $taxa), $tempo);
     return $nominal;
 }
 
-function valorFinalDCc($nominal, $taxa, $tempo) {
+function valorFinalDCc($nominal, $taxa, $tempo)
+{
     // valor futuro: vf = N / (1 + i) ^ n
     $vf = $nominal / pow((1 + $taxa), $tempo);
     return $vf;
 }
 
-function descontoCompostoC($nominal, $taxa, $tempo) {
-    /* Valor de desconto: D = VF.(1 - (1 - i)^ n) */ 
+function descontoCompostoC($nominal, $taxa, $tempo)
+{
+    /* Valor de desconto: D = VF.(1 - (1 - i)^ n) */
     $vf = valorFinalDCc($nominal, $taxa, $tempo);
     $valDesc = $vf * (1 - pow((1 - $taxa), $tempo));
     return $valDesc;
 }
 
 // Desconto Composto Racional
-function descontoCompostoRtx($nominal, $valDesc, $tempo) {
+function descontoCompostoRtx($nominal, $valDesc, $tempo)
+{
     // /* Valor da taxa: d = D / N.n */
     // $i = $valDesc / ($nominal * $tempo);
     // return $i;
 }
 
-function descontoCompostoRtempo($nominal, $valDesc, $taxa) {
+function descontoCompostoRtempo($nominal, $valDesc, $taxa)
+{
     // /* Valor da tempo: n = D / N.d */
     // $n = $valDesc / ($nominal * $taxa);
     // return $n;
 }
 
-function descontoCompostoRn($valDesc, $taxa, $tempo) {
+function descontoCompostoRn($valDesc, $taxa, $tempo)
+{
     /*Valor nominal: N = vf / (1 + i) ^ n*/
     $nominal = $valDesc / pow((1 + $taxa), $tempo);
     return $nominal;
 }
-function valorFinalDCr($nominal, $taxa, $tempo) {
+
+function valorFinalDCr($nominal, $taxa, $tempo)
+{
     // valor futuro: vf = N (1 + i) ^ n
     $vf = $nominal * pow((1 + $taxa), $tempo);
     return $vf;
 }
-function descontoCompostoR($nominal, $taxa, $tempo) {
-    /* Valor de desconto: D = VF.(1 - (1 + i)^ -n) */ 
+
+function descontoCompostoR($nominal, $taxa, $tempo)
+{
+    /* Valor de desconto: D = VF.(1 - (1 + i)^ -n) */
     $vf = valorFinalDCr($nominal, $taxa, $tempo);
     $valDesc = $vf * (1 - pow((1 + $taxa), (-$tempo)));
     return $valDesc;
 }
 
-function montante() {
+function montante()
+{
 
     if (isset($_GET['vp'])) {
         $vp = $_GET['vp'];
@@ -583,60 +624,69 @@ function montante() {
     $taxa1 = converteTaxaSimples($taxa, $taxa_t, $tempo_t);
     $tempo1 = converteTempoSimples($tempo, $tempo_t, $taxa_t);
 
-        if ($vp != null & $taxa != null & $tempo != null & $vf == null) {
+    if ($vp != null & $taxa != null & $tempo != null & $vf == null) {
 
-            echo "<h4>Valor Presente: " . $vp . "</h4> ";
-            echo "<h4>Taxa (" . $taxa_t . "): " . $taxa . "% </h4> ";
-            echo "<h4>Tempo (" . $tempo_t . "): " . $tempo . "</h4> ";
-            echo "<h3>Valor Futuro: " . montanteSvf($vp, $taxa1, $tempo1) . "</h3> ";
-    
-        } elseif ($vp == null & $taxa != null & $tempo != null & $vf != null) { /*Calcular valor do valor presente*/
-            
-            echo "<h4>Valor Futuro: " . $vf . "</h4> ";
-            echo "<h4>Taxa (" . $taxa_t . "): " . $taxa . "% </h4> ";
-            echo "<h4>Tempo (" . $tempo_t . "): " . $tempo . "</h4> ";
-            echo "<h3>Valor Presente: " . montanteSvf($vf, $taxa1, $tempo1) . "</h3> ";
-    
-        } elseif ($vp != null & $taxa == null & $tempo != null & $vf != null) { /*Calcular valor do valor da taxa*/
-    
-            echo "<h4>Valor Futuro: " . $vf . "</h4> ";
-            echo "<h4>Valor Presente: " . $vp . "</h4> ";
-            echo "<h4>Tempo (" . $tempo_t . "): " . $tempo . "% </h4> ";
-            echo "<h3>Taxa(".$taxa_t."): " . montanteStx($vp, $vf, $tempo1) . "</h3> ";
-    
-    
-        } elseif ($vp != null & $taxa != null & $tempo == null & $vf != null) { /*Calcular valor do tempo*/
-    
-            echo "<h4>Valor Presente: " . $vp . "</h4> ";
-            echo "<h4>Valor Futuro: " . $vf . "</h4> ";
-            echo "<h4>Taxa (" . $taxa_t . "): " . $taxa . "% </h4> ";
-            echo "<h3>Tempo(".$tempo_t."): " . montanteStt($vp, $taxa1, $vf) . "</h3> ";
-    
-        } else {
-            echo "<div class=\"alert alert-warning\">
+        echo "<h4>Valor Presente: " . $vp . "</h4> ";
+        echo "<h4>Taxa (" . $taxa_t . "): " . $taxa . "% </h4> ";
+        echo "<h4>Tempo (" . $tempo_t . "): " . $tempo . "</h4> ";
+        echo "<h3>Valor Futuro:" . montanteSvf($vp, $taxa1, $tempo1) . "</h3> ";
+
+    } elseif ($vp == null & $taxa != null & $tempo != null & $vf != null) { /*Calcular valor do valor presente*/
+
+        echo "<h4>Valor Futuro: " . $vf . "</h4> ";
+        echo "<h4>Taxa (" . $taxa_t . "): " . $taxa . "% </h4> ";
+        echo "<h4>Tempo (" . $tempo_t . "): " . $tempo . "</h4> ";
+        echo "<h3>Valor Presente: " . montanteScap($vf, $taxa1, $tempo1) . "</h3> ";
+
+    } elseif ($vp != null & $taxa == null & $tempo != null & $vf != null) { /*Calcular valor do valor da taxa*/
+
+        echo "<h4>Valor Futuro: " . $vf . "</h4> ";
+        echo "<h4>Valor Presente: " . $vp . "</h4> ";
+        echo "<h4>Tempo (" . $tempo_t . "): " . $tempo . "% </h4> ";
+        echo "<h3>Taxa(" . $taxa_t . "): " . montanteStx($vp, $vf, $tempo1) . "</h3> ";
+
+
+    } elseif ($vp != null & $taxa != null & $tempo == null & $vf != null) { /*Calcular valor do tempo*/
+
+        echo "<h4>Valor Presente: " . $vp . "</h4> ";
+        echo "<h4>Valor Futuro: " . $vf . "</h4> ";
+        echo "<h4>Taxa (" . $taxa_t . "): " . $taxa . "% </h4> ";
+        echo "<h3>Tempo(" . $tempo_t . "): " . montanteStt($vp, $taxa1, $vf) . "</h3> ";
+
+    } else {
+        echo "<div class=\"alert alert-warning\">
                 Deixe apenas um campo em branco.</div>";
-        }
+    }
 }
 
-function montanteStt($c, $i, $vf) {
+function montanteStt($c, $i, $vf)
+{
     // tempo: n = vf - c / c . i
     $n = ($vf - $c) / ($c * $i);
     return $n;
 }
 
-function montanteStx($c, $vf, $t) {
+function montanteStx($c, $vf, $t)
+{
     // tx: tx = vf - c / c . n
     $tx = ($vf - $c) / ($c * $t);
     return $tx;
 
 }
-function montanteScap($vf, $i, $t) {
+
+function montanteScap($vf, $i, $t)
+{
     // capital: C = m / (1 + i . t)
     $c = $vf / (1 + $i * $t);
+
+    return $c;
 }
-function montanteSvf($c, $i, $t) {
+
+function montanteSvf($c, $i, $t)
+{
     // montante: M = C (1 + i . t)
-    $m = $c * (1 + $i * $t);
+    $m = $c * (1 + ($i * $t));
     return $m;
 }
+
 ?>
