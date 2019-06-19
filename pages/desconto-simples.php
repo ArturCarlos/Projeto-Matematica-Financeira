@@ -8,7 +8,7 @@ decontoSimples();
         <h2>Desconto Simples</h2>
         <form action="desconto-simples.php" method="get">
             <div class="row">
-                <div class="col-sm-12">
+                <div class="col-sm-6">
                     <div class="row" style="margin-top: 20px;">
                         <div class="col-sm-12">
                             <label for="tipo-desconto">Tipo de desconto: </label>
@@ -23,20 +23,20 @@ decontoSimples();
                     <div class="row" style="margin-top: 20px;">
                         <div class="col-sm-12">
                             <label for="N">Valor Nominal:</label>
-                            <input type="number" name="nominal" class="form-control" min="0" pattern="^\d*(\.\d{0,2})?$" id="nominal"/>
+                            <input type="number" step="0.01" name="nominal" class="form-control" min="0"
+                                   pattern="^\d*(\.\d{0,2})?$" id="nominal"/>
                         </div>
                     </div>
                     <div class="row" style="margin-top: 20px;">
                         <div class="col-sm-12">
-                            <label for="taxa">Taxa:</label>
+                            <label for="taxa">Taxa % ao:</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <input type="number" class="form-control" name="taxa" id="taxa"/></div>
-                        <div class="col-sm-1"> % ao</div>
+                            <input type="number" step="0.01" class="form-control" name="taxa" id="taxa"/></div>
 
-                        <div class="col-sm-5">
+                        <div class="col-sm-6">
                             <select class="form-control" id="taxa-t" name="taxa-t">
                                 <option value="dia">Dia</option>
                                 <option value="mes">Mês</option>
@@ -53,7 +53,7 @@ decontoSimples();
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <input type="number" class="form-control" name="tempo" id="tempo"/></div>
+                            <input type="number" step="0.01" class="form-control" name="tempo" id="tempo"/></div>
                         <div class="col-sm-6">
                             <select class="form-control" id="tempo-dia" name="tempo-dia">
                                 <option value="dia">Dia</option>
@@ -68,7 +68,7 @@ decontoSimples();
                     <div class="row" style="margin-top: 20px;">
                         <div class="col-sm-12">
                             <label for="vf">Valor após Desconto:</label>
-                            <input type="number" class="form-control" name="valDesc"
+                            <input type="number" step="0.01" class="form-control" name="valDesc"
                                    id="valDesc"/>
                         </div>
                     </div>
@@ -79,6 +79,22 @@ decontoSimples();
                            value="Limpar">
                 </div>
         </form>
+
+        <!--Resultados-->
+        <div class="col-sm-6">
+            <hr>
+            <div class="text-center">
+                <h3>Resultado</h3>
+            </div>
+            <hr>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <h4><?php jurosSimples(); ?></h4>
+                </div>
+            </div>
+        </div>
+
     </div>
 
 <?php include(FOOTER_TEMPLATE); ?>
